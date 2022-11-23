@@ -31,7 +31,7 @@ export interface Match{
             asistant : number,
             death : number,
             kda : number,
-            championName: string
+            championName: string,
             champLevel: number,
             item0: number,
             item1: number,
@@ -54,7 +54,7 @@ export interface Match{
             wardsKilled: number,
             wardsPlaced: number,
             win: boolean,
-        },{},{},
+        }
     ]
 }
 
