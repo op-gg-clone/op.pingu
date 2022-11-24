@@ -1,6 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { RecordsService } from './records.service';
-import { Summoner } from './summoner.model';
 
 @Controller('records')
 export class RecordsController {
