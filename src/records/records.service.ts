@@ -7,6 +7,22 @@ import { match } from 'assert';
 
 @Injectable()
 export class RecordsService {
+  // 사용자 아이디로 전적 불러오기
+  async getMatchesBySummonerName(summonerName, start) {
+    try {
+      const { puuid } = await this.getSummoner(summonerName);
+      const matchesId = await this.getMatches(puuid, start);
+      const matchesDetail = await Promise.all(
+        matchesId.map((matchId) => {
+          return this.getMatchDetail(matchId);
+        }),
+      );
+      return matchesDetail;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async getSummoner(summonerName: string) {
     try {
       const response = await fetch(
@@ -15,52 +31,36 @@ export class RecordsService {
           headers: { 'X-Riot-Token': process.env.API_KEY },
         },
       ).then((res) => res.json());
-      console.log(response);
       return response;
     } catch (e) {
       return e;
     }
   }
 
-  async getMatches(summonerName: string) {
-    const user = await this.getSummoner(summonerName);
-    const puuid = user.puuid;
-    console.log(puuid);
+  async getMatches(puuid: string, start: number) {
     try {
       const response = await fetch(
-        `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=20`,
+        `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=${start}&count=5`,
         {
           headers: { 'X-Riot-Token': process.env.API_KEY },
         },
       ).then((res) => res.json());
-      const res = response;
-      console.log('matchID :', res);
-      return res;
+      return response;
     } catch (e) {
       return e;
     }
   }
 
-  async getMatchDetail(summonerName: string) {
+  async getMatchDetail(matchId: string) {
     try {
-      const matches = await this.getMatches(summonerName);
-      const foundMatches = await Promise.all(
-        matches.map(async (match) => {
-          await fetch(
-            `https://asia.api.riotgames.com/lol/match/v5/matches/${match}`,
-            {
-              headers: { 'X-Riot-Token': process.env.API_KEY },
-            },
-          )
-            .then((res) => res.json())
-            .then((res) => console.log(res)); //<-----여기까진 불러와 진다
-        }),
-      );
+      const foundMatch = await fetch(
+        `https://asia.api.riotgames.com/lol/match/v5/matches/${matchId}`,
+        {
+          headers: { 'X-Riot-Token': process.env.API_KEY },
+        },
+      ).then((res) => res.json());
 
-      console.log('정제된 데이터 1: ');
-      console.log('foundMatches: ', foundMatches); //<------그럼 여기서 object 20개 짜리 배열이 떠야하는데 왜 undefined 20개??
-
-      const result = foundMatches.map((match) => {
+      const refineMatchDetail = (match) => {
         return {
           matchInfo: {
             gameCreation: match.info.gameCreation,
@@ -72,27 +72,30 @@ export class RecordsService {
             gameStartTimestamp: match.info.gameStartTimestamp,
             gameType: match.info.gameType,
             gameVersion: match.info.gameVersion,
-            mapId: match.metadata.mapId,
+            queueId: match.queueId,
           },
           summonerInfo: match.info.participants.map((summoner) => {
             return {
               puuid: summoner.puuid,
               summonerName: summoner.summonerName,
-              kill: summoner.kill,
-              asistant: summoner.asistant,
-              death: summoner.death,
+              kills: summoner.kills,
+              assist: summoner.assist,
+              deaths: summoner.deaths,
               kda: summoner.challenges.kda,
               championName: summoner.championName,
               champLevel: summoner.champLevel,
-              item0: summoner.item0,
-              item1: summoner.item1,
-              item2: summoner.item2,
-              item3: summoner.item3,
-              item4: summoner.item4,
-              item5: summoner.item5,
-              item6: summoner.item6,
-              mainPerk: summoner.perk.styles[0].style,
-              subPerk: summoner.perk.styles[1].style,
+              item0: `https://ddragon.leagueoflegends.com/cdn/12.22.1/img/item/${summoner.item0}.png`,
+              item1: `https://ddragon.leagueoflegends.com/cdn/12.22.1/img/item/${summoner.item1}.png`,
+              item2: `https://ddragon.leagueoflegends.com/cdn/12.22.1/img/item/${summoner.item2}.png`,
+              item3: `https://ddragon.leagueoflegends.com/cdn/12.22.1/img/item/${summoner.item3}.png`,
+              item4: `https://ddragon.leagueoflegends.com/cdn/12.22.1/img/item/${summoner.item4}.png`,
+              item5: `https://ddragon.leagueoflegends.com/cdn/12.22.1/img/item/${summoner.item5}.png`,
+              item6: `https://ddragon.leagueoflegends.com/cdn/12.22.1/img/item/${summoner.item6}.png`,
+              mainPerk: {
+                style: summoner.perks.styles[0].stylese,
+                perk: summoner.perks.styles[0].selection[0].perk,
+              },
+              subPerk: summoner.perks.styles[1].style,
               spell1: summoner.summoner1Id,
               spell2: summoner.summoner2Id,
               totalDamageDealt: summoner.totalDamageDealt,
@@ -109,12 +112,10 @@ export class RecordsService {
             };
           }),
         };
-      });
-
-      console.log('정제된 데이터 2 : ');
-      return result;
+      };
+      return refineMatchDetail(foundMatch);
     } catch (e) {
-      console.log('!!!!!error!!!!!');
+      console.log(e.message);
       return e;
     }
   }
