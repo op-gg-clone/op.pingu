@@ -5,8 +5,15 @@ import { RecordsService } from './records.service';
 export class RecordsController {
   constructor(private recordsService: RecordsService) {}
 
-  @Get(':summonerName')
+  @Get('/matchesInfo/:summonerName')
   async getMatchesBySummonerName(@Param('summonerName') summonerName: string) {
     return this.recordsService.getMatchesBySummonerName(summonerName, 0);
+  }
+
+  @Get('/summonerInfo/:summonerName')
+  async getSummonerInfoBySummonerName(
+    @Param('summonerName') summonerName: string,
+  ) {
+    return this.recordsService.getSummonerInfoBySummonerName(summonerName);
   }
 }
