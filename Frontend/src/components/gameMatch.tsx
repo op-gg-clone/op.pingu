@@ -1,27 +1,46 @@
 import { useCallback, useEffect, useState } from 'react';
+import _MatchTpye2 from '../type/matchType2';
 import SummonerInfo from './summonerInfo';
 import SimpleMatchInfo from './simpleMatchInfo';
-import matchService from '../utils/matchService';
 
-import _MatchTpye from '../type/matchType';
+import matchService2 from '../utils/matchService2';
+import DetailMatchInfo from './detailMatchInfo';
 
 type SummonerType = {
   summonerName: string;
 };
 
 const GameMatch = ({ summonerName }: SummonerType) => {
-  const [match, setMatch] = useState<_MatchTpye[]>([]);
+  const [match, setMatch] = useState<_MatchTpye2[]>([]);
+
+  const [showDetail, setShowDetail] = useState<number[]>([]);
 
   const matchTypeInit = useCallback(async () => {
     const response = await fetch('/game/match');
     const data = await response.json();
-    const matchList = matchService(data.result, summonerName);
+    const matchList = matchService2(data.result, summonerName);
     setMatch(matchList);
   }, [summonerName]);
 
   useEffect(() => {
     matchTypeInit();
   }, [matchTypeInit]);
+
+  const handleOpneDetail = (idx: number) => () => {
+    return true;
+  };
+
+  const handleDetailBtn = (idx: number) => () => {
+    setShowDetail((prev) => {
+      const newList = [...prev];
+      if (newList.includes(idx)) {
+        const list = newList.filter((e) => e !== idx);
+        return list;
+      }
+      newList.push(idx);
+      return newList;
+    });
+  };
 
   return (
     <div className="bg-[#1C1C1F] h-full sm:bg-red-400">
@@ -38,8 +57,9 @@ const GameMatch = ({ summonerName }: SummonerType) => {
       <SummonerInfo name={summonerName} rank="1" tier="Gold" />
       {match.map((e, idx) => {
         return (
-          <div key={idx}>
-            <SimpleMatchInfo data={e} />
+          <div key={idx} className="matchInfo">
+            <SimpleMatchInfo matchInfo={e} detailBtnClickHandler={handleDetailBtn(idx)} />
+            {showDetail.includes(idx) && <DetailMatchInfo isDetail={handleOpneDetail} />}
           </div>
         );
       })}

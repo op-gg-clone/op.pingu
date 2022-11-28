@@ -1,5 +1,5 @@
 import { getRankEmblem } from '../utils/rankLoader';
-
+import summonerImage from '../img/5629.png';
 type Summoner = {
   name: string;
   rank: string;
@@ -11,7 +11,7 @@ const SummonerInfo = ({ name, rank, tier }: Summoner) => {
     <div className="p-2 bg-[#31313C]">
       <div className="flex">
         <div className="h-1/5 w-1/5">
-          <img className="h-full w-full object-cover" src={getRankEmblem(tier)} alt="emblem" />
+          <img className="h-full w-full object-cover" src={summonerImage} alt="emblem" />
         </div>
         <div className="ml-2">
           <p className="text-white text-lg">{name}</p>
