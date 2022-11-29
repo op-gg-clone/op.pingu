@@ -1,0 +1,25 @@
+declare const perks: {
+    8100: string;
+    8300: string;
+    8000: string;
+    8400: string;
+    8200: string;
+    8112: string;
+    8124: string;
+    8128: string;
+    9923: string;
+    8351: string;
+    8360: string;
+    8369: string;
+    8005: string;
+    8008: string;
+    8021: string;
+    8010: string;
+    8437: string;
+    8439: string;
+    8465: string;
+    8214: string;
+    8229: string;
+    8230: string;
+};
+export { perks };
