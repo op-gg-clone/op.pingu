@@ -10,7 +10,7 @@ export class RecordsService {
 
   // 소환사 아이디로 전적 불러오기
   // 소환사 id => 소환사의 puuid 획득 => puuid로 최근게임 20개의 mathchId 획득 => matchId로 각 게임의 세부정보 획득 반복함
-  async getMatchesBySummonerName(summonerName, start) {
+  async getMatchesBySummonerName(summonerName: string, start = 0) {
     try {
       const { puuid } = await this.getSummonerId(summonerName);
       const matchesId = await this.getMatches(puuid, start);
