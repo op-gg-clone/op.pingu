@@ -1,6 +1,6 @@
-import { IMatchInfo, ISummonerInfo } from '../type/IMatchInfo';
+import { IMatchInfo, IMacthDetailInfo } from '../interface/IMatchInfo';
 
-class _MatchTpye implements IMatchInfo {
+class _MatchType implements IMatchInfo {
   gameCreation: number;
   gameDuration: number;
   gameEndTimestamp: number;
@@ -10,8 +10,8 @@ class _MatchTpye implements IMatchInfo {
   gameStartTimestamp: number;
   gameType: string;
   gameVersion: string;
-  participants: ISummonerInfo[];
-  personalMatch: ISummonerInfo;
+  participants: IMacthDetailInfo[];
+  personalMatch: IMacthDetailInfo;
 
   constructor(
     gameCreation: number,
@@ -23,8 +23,8 @@ class _MatchTpye implements IMatchInfo {
     gameStartTimestamp: number,
     gameType: string,
     gameVersion: string,
-    participants: ISummonerInfo[],
-    personalMatch: ISummonerInfo
+    participants: IMacthDetailInfo[],
+    personalMatch: IMacthDetailInfo
   ) {
     this.gameCreation = gameCreation;
     this.gameDuration = gameDuration;
@@ -55,4 +55,4 @@ class _MatchTpye implements IMatchInfo {
   }
 }
 
-export default _MatchTpye;
+export default _MatchType;
