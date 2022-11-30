@@ -6,8 +6,11 @@ export class RecordsController {
   constructor(private recordsService: RecordsService) {}
 
   @Get('/matchesInfo/:summonerName')
-  async getMatchesBySummonerName(@Param('summonerName') summonerName: string) {
-    return this.recordsService.getMatchesBySummonerName(summonerName, 0);
+  async getMatchesBySummonerName(
+    @Param('summonerName') summonerName: string,
+    @Query('start') start?: number,
+  ) {
+    return this.recordsService.getMatchesBySummonerName(summonerName, start);
   }
 
   @Get('/summonerInfo/:summonerName')
