@@ -1,3 +1,4 @@
+import Unranked from '../img/Emblem_Unranked.png';
 import Iron from '../img/Emblem_Iron.png';
 import Bronze from '../img/Emblem_Bronze.png';
 import Silver from '../img/Emblem_Silver.png';
@@ -10,28 +11,29 @@ import Challenger from '../img/Emblem_Challenger.png';
 
 type TierType = {
   [key: string]: string;
-  Iron: string;
-  Bronze: string;
-  Silver: string;
-  Gold: string;
-  Platinum: string;
-  Diamond: string;
-  Master: string;
-  Grandmaster: string;
-  Challenger: string;
+  IRON: string;
+  BRONZE: string;
+  SILVER: string;
+  GOLD: string;
+  PLATINUM: string;
+  DAIMOND: string;
+  MASTER: string;
+  GRNADMASTER: string;
+  CHALLENGER: string;
 };
 const tireObj: TierType = {
-  Iron: Iron,
-  Bronze: Bronze,
-  Silver: Silver,
-  Gold: Gold,
-  Platinum: Platinum,
-  Diamond: Diamond,
-  Master: Master,
-  Grandmaster: Grandmaster,
-  Challenger: Challenger,
+  IRON: Iron,
+  BRONZE: Bronze,
+  SILVER: Silver,
+  GOLD: Gold,
+  PLATINUM: Platinum,
+  DAIMOND: Diamond,
+  MASTER: Master,
+  GRNADMASTER: Grandmaster,
+  CHALLENGER: Challenger,
 };
 
 export const getRankEmblem = (tier: string): string => {
+  if (!tireObj[tier]) return Unranked;
   return tireObj[tier];
 };
