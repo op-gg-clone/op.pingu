@@ -1,9 +1,4 @@
-interface openProps {
-  isDetail: any;
-}
-
-const DetailMatchInfo = ({ isDetail }: openProps) => {
-  console.log(isDetail);
+const DetailMatchInfo = () => {
   return <div>dd</div>;
 };
 

@@ -1,9 +1,9 @@
-import _MatchTpye2 from '../type/matchType2';
 import itemImage from '../img/1001.png';
 import championImage from '../img/Aatrox.png';
 import SummonerFlash from '../img/SummonerFlash.png';
+import _MatchType from '../type/matchType';
 interface matchInfo {
-  matchInfo: _MatchTpye2;
+  matchInfo: _MatchType;
   detailBtnClickHandler: any;
 }
 
@@ -79,7 +79,7 @@ const SimpleMatchInfo = ({ matchInfo, detailBtnClickHandler }: matchInfo) => {
             <span>/</span>
             <span className="text-red-600">{matchInfo.personalMatch.deaths}</span>
             <span>/</span>
-            <span className="text-white">{matchInfo.personalMatch.assists}</span>
+            <span className="text-white">{matchInfo.personalMatch.assist}</span>
           </div>
           <div>
             <p className="text-[0.6rem] text-center">{`${Number(
@@ -95,7 +95,7 @@ const SimpleMatchInfo = ({ matchInfo, detailBtnClickHandler }: matchInfo) => {
             <p className="text-red-600">킬관여?</p>
           </div>
           <div>
-            <p>{`제어 와드 ${matchInfo.personalMatch.wardInfo.visionWardsBoughtInGame}`}</p>
+            <p>{`제어 와드 ${matchInfo.personalMatch.visionWardsBoughtInGame}`}</p>
           </div>
         </div>
         <div className="inline-grid grid-cols-4 gap-0">
