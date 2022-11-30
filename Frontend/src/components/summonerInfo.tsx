@@ -20,20 +20,20 @@ const RankType = ({ type, tier, rank }: IRankType) => {
       <div className="text-white text-sm">
         {tier} {rank}
       </div>
-      <div className="mt-3 text-slate-400 text-sm">0승 0패 0%</div>
+      <div className="mt-1 text-slate-400 text-sm">0승 0패 0%</div>
     </div>
   );
 };
 
 const SummonerInfo = ({ name, rank, tier }: Summoner) => {
   return (
-    <div className="p-2 bg-[#31313C]">
+    <div className="p-4 bg-[#31313C] rounded-lg font-noto">
       <div className="flex">
-        <div className="h-1/5 w-1/5">
-          <img className="h-full w-full object-cover" src={summonerImage} alt="emblem" />
+        <div className="h-20 w-20">
+          <img className="h-full w-full object-cover rounded-lg" src={summonerImage} alt="emblem" />
         </div>
-        <div className="ml-2">
-          <p className="text-white text-lg">{name}</p>
+        <div className="ml-2 flex items-center">
+          <p className="text-white text-lg font-semibold">{name}</p>
         </div>
       </div>
       <div className="grid grid-cols-3 gap-2 mt-2">
@@ -43,7 +43,7 @@ const SummonerInfo = ({ name, rank, tier }: Summoner) => {
       </div>
       <div className="flex mt-5 justify-around">
         <RankType type={'솔로랭크'} tier={tier} rank={rank} />
-        <div className="text-center text-slate-400 border-solid border border-black"></div>
+        <div className="border-solid border border-black"></div>
         <RankType type={'자유랭크'} tier={'Platinum'} rank={'2'} />
       </div>
     </div>

@@ -6,14 +6,31 @@ interface matchInfo {
   matchInfo: _MatchTpye2;
   detailBtnClickHandler: any;
 }
+const SpellRune = ({ imageSrc }: { imageSrc: string }) => {
+  return (
+    <div className="h-5 w-5">
+      <img className="h-full w-full object-cover rounded-md" src={imageSrc} alt="champion" />
+    </div>
+  );
+};
+
+const ItemIcon = ({ itemImage }: { itemImage: string }) => {
+  return (
+    <div className="h-5 w-5 drop-shadow-sm">
+      <img className="h-full w-full object-cover rounded-md" src={itemImage} alt="champion" />
+    </div>
+  );
+};
 
 const SimpleMatchInfo = ({ matchInfo, detailBtnClickHandler }: matchInfo) => {
   return (
     <div
-      className={`flex flex-col mt-1 ${matchInfo.personalMatch.win ? 'bg-blue-400' : 'bg-red-400'}`}
+      className={`flex flex-col mt-1 rounded-lg p-2 font-noto ${
+        matchInfo.personalMatch.win ? 'bg-blue-400' : 'bg-red-400'
+      }`}
     >
       <div className="grid grid-flow-col">
-        <div className="font-bold text-sm">
+        <div className="font-medium text-sm">
           {matchInfo.personalMatch.win ? (
             <p className="text-blue-900">승리</p>
           ) : (
@@ -26,8 +43,8 @@ const SimpleMatchInfo = ({ matchInfo, detailBtnClickHandler }: matchInfo) => {
         <div className="text-sm text-white text-right">
           <p>소환사의 협곡</p>
         </div>
-        <div className="text-right mr-2">
-          <button onClick={detailBtnClickHandler}>detail</button>
+        <div className="text-right mr-2 text-sm font-medium">
+          <button onClick={detailBtnClickHandler}>더보기</button>
         </div>
       </div>
       <div className="flex p-4 justify-between">
@@ -43,34 +60,9 @@ const SimpleMatchInfo = ({ matchInfo, detailBtnClickHandler }: matchInfo) => {
             </span>
           </div>
           <div className="inline-grid grid-cols-2 gap-1 ml-1">
-            <div className="h-5 w-5">
-              <img
-                className="h-full w-full object-cover rounded-md"
-                src={SummonerFlash}
-                alt="champion"
-              />
-            </div>
-            <div className="h-5 w-5">
-              <img
-                className="h-full w-full object-cover rounded-md"
-                src={SummonerFlash}
-                alt="champion"
-              />
-            </div>
-            <div className="h-5 w-5">
-              <img
-                className="h-full w-full object-cover rounded-md"
-                src={SummonerFlash}
-                alt="champion"
-              />
-            </div>
-            <div className="h-5 w-5">
-              <img
-                className="h-full w-full object-cover rounded-md"
-                src={SummonerFlash}
-                alt="champion"
-              />
-            </div>
+            {[0, 1, 2, 3].map((v) => (
+              <SpellRune key={v} imageSrc={SummonerFlash} />
+            ))}
           </div>
         </div>
         <div className="flex flex-col w-1/6">
@@ -98,28 +90,10 @@ const SimpleMatchInfo = ({ matchInfo, detailBtnClickHandler }: matchInfo) => {
             <p>{`제어 와드 ${matchInfo.personalMatch.wardInfo.visionWardsBoughtInGame}`}</p>
           </div>
         </div>
-        <div className="inline-grid grid-cols-4 gap-0">
-          <div className="h-5 w-5">
-            <img className="h-full w-full object-cover rounded-md" src={itemImage} alt="champion" />
-          </div>
-          <div className="h-5 w-5">
-            <img className="h-full w-full object-cover rounded-md" src={itemImage} alt="champion" />
-          </div>
-          <div className="h-5 w-5">
-            <img className="h-full w-full object-cover rounded-md" src={itemImage} alt="champion" />
-          </div>
-          <div className="h-5 w-5">
-            <img className="h-full w-full object-cover rounded-md" src={itemImage} alt="champion" />
-          </div>
-          <div className="h-5 w-5">
-            <img className="h-full w-full object-cover rounded-md" src={itemImage} alt="champion" />
-          </div>
-          <div className="h-5 w-5">
-            <img className="h-full w-full object-cover rounded-md" src={itemImage} alt="champion" />
-          </div>
-          <div className="h-5 w-5">
-            <img className="h-full w-full object-cover rounded-md" src={itemImage} alt="champion" />
-          </div>
+        <div className="inline-grid grid-cols-4 gap-0.5">
+          {[0, 1, 2, 3, 4, 5, 6].map((v) => (
+            <ItemIcon key={v} itemImage={itemImage} />
+          ))}
         </div>
       </div>
     </div>
