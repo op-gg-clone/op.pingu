@@ -70,6 +70,16 @@ export class RecordsService {
           ),
         )
       ).data[0];
+      
+      if (!info) {
+        return {
+          tier: 'UNRANKED',
+          rank: '',
+          wins: 0,
+          losses: 0,
+        };
+      }
+      
       const summonerInfo = {
         tier: info.tier,
         rank: info.rank,
