@@ -27,7 +27,7 @@ const RankType = ({ type, tier, rank }: IRankType) => {
 
 const SummonerInfo = ({ name, rank, tier }: Summoner) => {
   return (
-    <div className="p-4 bg-[#31313C] rounded-lg font-noto">
+    <div className="p-4 bg-[#31313C] rounded-lg font-noto drop-shadow-lg">
       <div className="flex">
         <div className="h-20 w-20">
           <img className="h-full w-full object-cover rounded-lg" src={summonerImage} alt="emblem" />

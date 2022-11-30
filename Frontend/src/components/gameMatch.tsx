@@ -44,7 +44,7 @@ const GameMatch = ({ summonerName }: SummonerType) => {
 
   return (
     <div className="h-full bg-slate-300">
-      <div className="bg-blue-900 h-36 rounded-lg mt-1 mb-1 font-roboto">
+      <div className="bg-blue-900 h-36 rounded-lg mt-1 mb-1 font-roboto drop-shadow-lg">
         <div className="text-white text-center text-3xl pt-4 font-semibold tracking-widest">
           OP.PINGU
         </div>
@@ -65,6 +65,11 @@ const GameMatch = ({ summonerName }: SummonerType) => {
           </div>
         );
       })}
+      <div>
+        <button className="text-center bg-slate-500 text-white w-full mt-1 rounded-lg p-2 font-noto text-lg drop-shadow-lg">
+          전적 더 보기
+        </button>
+      </div>
     </div>
   );
 };

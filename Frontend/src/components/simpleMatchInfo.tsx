@@ -25,7 +25,7 @@ const ItemIcon = ({ itemImage }: { itemImage: string }) => {
 const SimpleMatchInfo = ({ matchInfo, detailBtnClickHandler }: matchInfo) => {
   return (
     <div
-      className={`flex flex-col mt-1 rounded-lg p-2 font-noto ${
+      className={`flex flex-col mt-1 rounded-lg p-2 drop-shadow-lg font-noto ${
         matchInfo.personalMatch.win ? 'bg-blue-400' : 'bg-red-400'
       }`}
     >
