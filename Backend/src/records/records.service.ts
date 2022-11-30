@@ -147,7 +147,7 @@ export class RecordsService {
               puuid: summoner.puuid,
               summonerName: summoner.summonerName,
               kills: summoner.kills,
-              assist: summoner.assist,
+              assist: summoner.assists,
               deaths: summoner.deaths,
               kda: summoner.challenges.kda,
               championName: summoner.championName,
