@@ -5,10 +5,12 @@ import SimpleMatchInfo from './simpleMatchInfo';
 
 import matchService2 from '../utils/matchService2';
 import DetailMatchInfo from './detailMatchInfo';
+import { getMatchBySummonerName, getSummonerInfoBySummonerName } from '../utils/apiService';
 
 type SummonerType = {
   summonerName: string;
 };
+const testname: string = '소원을이룬데프트';
 
 const GameMatch = ({ summonerName }: SummonerType) => {
   const [match, setMatch] = useState<_MatchTpye2[]>([]);
@@ -22,9 +24,19 @@ const GameMatch = ({ summonerName }: SummonerType) => {
     setMatch(matchList);
   }, [summonerName]);
 
+  const matchInfoInit = useCallback(async () => {
+    const matchList = await getMatchBySummonerName(summonerName);
+  }, [summonerName]);
+  const summonerInfoInit = useCallback(async () => {
+    const summoner = await getSummonerInfoBySummonerName(summonerName);
+  }, [summonerName]);
+
   useEffect(() => {
-    matchTypeInit();
-  }, [matchTypeInit]);
+    // matchTypeInit();
+    const data = getMatchBySummonerName(testname);
+    const info = getSummonerInfoBySummonerName(testname);
+    console.log('data', data);
+  }, []);
 
   const handleOpneDetail = (idx: number) => () => {
     return true;
