@@ -99,7 +99,7 @@ export class RecordsService {
       return (
         await firstValueFrom(
           this.httpService.get(
-            `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=${start}&count=5`,
+            `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=${start}&count=10`,
             {
               headers: { 'X-Riot-Token': process.env.API_KEY },
             },
