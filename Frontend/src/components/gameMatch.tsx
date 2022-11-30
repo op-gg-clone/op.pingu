@@ -1,46 +1,38 @@
 import { useCallback, useEffect, useState } from 'react';
-import _MatchTpye2 from '../type/matchType2';
+import { getMatchBySummonerName, getSummonerInfoBySummonerName } from '../utils/apiService';
+import matchInfoService from '../utils/matchInfoService';
+import _MatchType from '../type/matchType';
+import _SummonerType from '../type/summonerType';
 import SummonerInfo from './summonerInfo';
 import SimpleMatchInfo from './simpleMatchInfo';
-
-import matchService2 from '../utils/matchService2';
 import DetailMatchInfo from './detailMatchInfo';
-import { getMatchBySummonerName, getSummonerInfoBySummonerName } from '../utils/apiService';
+import summonerInfoService from '../utils/summonerInfoService';
 
-type SummonerType = {
+interface SummonerType {
   summonerName: string;
-};
-const testname: string = '소원을이룬데프트';
+}
 
 const GameMatch = ({ summonerName }: SummonerType) => {
-  const [match, setMatch] = useState<_MatchTpye2[]>([]);
-
+  const [match, setMatch] = useState<_MatchType[]>([]);
+  const [summoner, setSummoner] = useState<_SummonerType[]>([]);
   const [showDetail, setShowDetail] = useState<number[]>([]);
-
-  const matchTypeInit = useCallback(async () => {
-    const response = await fetch('/game/match');
-    const data = await response.json();
-    const matchList = matchService2(data.result, summonerName);
-    setMatch(matchList);
-  }, [summonerName]);
 
   const matchInfoInit = useCallback(async () => {
     const matchList = await getMatchBySummonerName(summonerName);
+    const matchInit = matchInfoService(matchList, summonerName);
+    setMatch(matchInit);
   }, [summonerName]);
+
   const summonerInfoInit = useCallback(async () => {
-    const summoner = await getSummonerInfoBySummonerName(summonerName);
+    const response = await getSummonerInfoBySummonerName(summonerName);
+    const summonerInit = summonerInfoService(response);
+    setSummoner(summonerInit);
   }, [summonerName]);
 
   useEffect(() => {
-    // matchTypeInit();
-    const data = getMatchBySummonerName(testname);
-    const info = getSummonerInfoBySummonerName(testname);
-    console.log('data', data);
-  }, []);
-
-  const handleOpneDetail = (idx: number) => () => {
-    return true;
-  };
+    matchInfoInit();
+    summonerInfoInit();
+  }, [matchInfoInit, summonerInfoInit]);
 
   const handleDetailBtn = (idx: number) => () => {
     setShowDetail((prev) => {
@@ -66,15 +58,28 @@ const GameMatch = ({ summonerName }: SummonerType) => {
           <button className="text-blue-700 font-bold text-xl">.PING!</button>
         </div>
       </div>
-      <SummonerInfo name={summonerName} rank="1" tier="Gold" />
-      {match.map((e, idx) => {
-        return (
-          <div key={idx} className="matchInfo">
-            <SimpleMatchInfo matchInfo={e} detailBtnClickHandler={handleDetailBtn(idx)} />
-            {showDetail.includes(idx) && <DetailMatchInfo isDetail={handleOpneDetail} />}
-          </div>
-        );
-      })}
+      {summoner.length && (
+        <SummonerInfo
+          summonerName={summonerName}
+          rank={summoner[0].rank}
+          tier={summoner[0].tier}
+          wins={summoner[0].wins}
+          losses={summoner[0].losses}
+          odds={summoner[0].getOdds()}
+        />
+      )}
+      {match.length ? (
+        match.map((e, idx) => {
+          return (
+            <div key={idx} className="matchInfo">
+              <SimpleMatchInfo matchInfo={e} detailBtnClickHandler={handleDetailBtn(idx)} />
+              {showDetail.includes(idx) && <DetailMatchInfo />}
+            </div>
+          );
+        })
+      ) : (
+        <div className="text-white">로딩중</div>
+      )}
     </div>
   );
 };
