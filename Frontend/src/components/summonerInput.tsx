@@ -1,6 +1,4 @@
-interface SummonerSearchType {
-  onKeyPress: any;
-}
+import { SummonerSearchType } from '../interface/ISummonerInput';
 
 const SummonerSearch = ({ onKeyPress }: SummonerSearchType) => {
   return (

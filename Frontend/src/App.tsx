@@ -1,7 +1,6 @@
 import GameMatch from './components/gameMatch';
 function App() {
-  const name: string = 'Cozily';
-  return <GameMatch summonerBaseName={name} />;
+  return <GameMatch />;
 }
 
 export default App;

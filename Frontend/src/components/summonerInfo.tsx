@@ -1,13 +1,6 @@
 import { getRankEmblem } from '../utils/rankLoader';
 import summonerImage from '../img/5629.png';
-interface Summoner {
-  summonerName: string;
-  rank: string;
-  tier: string;
-  wins: number;
-  losses: number;
-  odds: number;
-}
+import { Summoner } from '../interface/ISummonerInfo';
 
 const SummonerInfo = ({ summonerName, rank, tier, wins, losses, odds }: Summoner) => {
   return (

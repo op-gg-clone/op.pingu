@@ -9,15 +9,11 @@ import DetailMatchInfo from './detailMatchInfo';
 import summonerInfoService from '../utils/summonerInfoService';
 import SummonerSearch from './summonerInput';
 
-interface SummonerType {
-  summonerBaseName: string;
-}
-
-const GameMatch = ({ summonerBaseName }: SummonerType) => {
+const GameMatch = () => {
   const [match, setMatch] = useState<_MatchType[]>([]);
   const [summoner, setSummoner] = useState<_SummonerType[]>([]);
   const [showDetail, setShowDetail] = useState<number[]>([]);
-  const [summonerName, setSummonerName] = useState(summonerBaseName);
+  const [summonerName, setSummonerName] = useState('Cozily');
 
   const onKeyPress = (e: any) => {
     if (e.key === 'Enter') {
