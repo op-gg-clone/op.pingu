@@ -16,6 +16,10 @@ const GameMatch = () => {
   const [summonerName, setSummonerName] = useState('Cozily');
 
   const onKeyPress = (e: any) => {
+    if (e.target.value !== summonerName) {
+      setSummoner(() => []);
+      setMatch(() => []);
+    }
     if (e.key === 'Enter') {
       setSummonerName(e.target.value);
     }

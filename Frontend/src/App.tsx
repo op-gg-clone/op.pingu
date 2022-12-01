@@ -6,7 +6,7 @@ function App() {
       <div className="ml-auto mr-auto max-w-screen-sm">
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<GameMatch summonerName={name} />} />
+            <Route path="/" element={<GameMatch />} />
           </Routes>
         </BrowserRouter>
       </div>

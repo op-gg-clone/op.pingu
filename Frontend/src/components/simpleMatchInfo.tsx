@@ -1,5 +1,4 @@
 // import itemImage from '../img/1001.png';
-import championImage from '../img/Aatrox.png';
 import _MatchType from '../type/matchType';
 interface matchInfo {
   matchInfo: _MatchType;
@@ -15,6 +14,9 @@ const SpellPerk = ({ imageSrc }: { imageSrc: string }) => {
 };
 
 const ItemIcon = ({ itemImage }: { itemImage: string }) => {
+  if (itemImage.length < 65) {
+    return <div className="h-5 w-5 drop-shadow-sm rounded-md opacity-50"></div>;
+  }
   return (
     <div className="h-5 w-5 drop-shadow-sm">
       <img className="h-full w-full object-cover rounded-md" src={itemImage} alt="champion" />
@@ -50,7 +52,7 @@ const SimpleMatchInfo = ({ matchInfo, detailBtnClickHandler }: matchInfo) => {
           <div className="relative h-10 w-10">
             <img
               className="h-full w-full object-cover rounded-full"
-              src={championImage}
+              src={matchInfo.personalMatch.championImage}
               alt="champion"
             />
             <span className="absolute bottom-0 right-0 w-5 h-5 bg-gray-800 text-white text-sm text-center rounded-full">
@@ -89,14 +91,18 @@ const SimpleMatchInfo = ({ matchInfo, detailBtnClickHandler }: matchInfo) => {
             <p>{`제어 와드 ${matchInfo.personalMatch.visionWardsBoughtInGame}`}</p>
           </div>
         </div>
-        <div className="inline-grid grid-cols-4 gap-0">
-          <ItemIcon itemImage={matchInfo.personalMatch.item0} />
-          <ItemIcon itemImage={matchInfo.personalMatch.item1} />
-          <ItemIcon itemImage={matchInfo.personalMatch.item2} />
-          <ItemIcon itemImage={matchInfo.personalMatch.item3} />
-          <ItemIcon itemImage={matchInfo.personalMatch.item4} />
-          <ItemIcon itemImage={matchInfo.personalMatch.item5} />
-          <ItemIcon itemImage={matchInfo.personalMatch.item6} />
+        <div className="relative mr-3">
+          <div className="inline-grid grid-cols-3 gap-0">
+            <ItemIcon itemImage={matchInfo.personalMatch.item0} />
+            <ItemIcon itemImage={matchInfo.personalMatch.item1} />
+            <ItemIcon itemImage={matchInfo.personalMatch.item2} />
+            <ItemIcon itemImage={matchInfo.personalMatch.item3} />
+            <ItemIcon itemImage={matchInfo.personalMatch.item4} />
+            <ItemIcon itemImage={matchInfo.personalMatch.item5} />
+          </div>
+          <div className="absolute top-0 -right-5">
+            <ItemIcon itemImage={matchInfo.personalMatch.item6} />
+          </div>
         </div>
       </div>
     </div>
