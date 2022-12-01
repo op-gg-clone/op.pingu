@@ -7,7 +7,7 @@ interface matchInfo {
 
 const SpellPerk = ({ imageSrc }: { imageSrc: string }) => {
   return (
-    <div className="h-5 w-5">
+    <div className="h-5 w-5 bg-black rounded-full">
       <img className="h-full w-full object-cover rounded-md" src={imageSrc} alt="champion" />
     </div>
   );
@@ -41,7 +41,7 @@ const SimpleMatchInfo = ({ matchInfo, detailBtnClickHandler }: matchInfo) => {
           <p>{matchInfo.getGameDurationToString()}</p>
         </div>
         <div className="text-sm text-white text-right">
-          <p>소환사의 협곡</p>
+          <p>{matchInfo.gameMode === 'CLASSIC' ? '소환사의 협곡' : '칼바람 나락'}</p>
         </div>
         <div className="text-right mr-2">
           <button onClick={detailBtnClickHandler}>detail</button>
@@ -61,8 +61,8 @@ const SimpleMatchInfo = ({ matchInfo, detailBtnClickHandler }: matchInfo) => {
           </div>
           <div className="inline-grid grid-cols-2 gap-1 ml-1">
             <SpellPerk imageSrc={matchInfo.personalMatch.spell1} />
-            <SpellPerk imageSrc={matchInfo.personalMatch.spell2} />
             <SpellPerk imageSrc={matchInfo.personalMatch.mainPerk} />
+            <SpellPerk imageSrc={matchInfo.personalMatch.spell2} />
             <SpellPerk imageSrc={matchInfo.personalMatch.subPerk} />
           </div>
         </div>
