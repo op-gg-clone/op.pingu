@@ -9,3 +9,12 @@ export interface ISummonerInfo {
 export interface ISummonerInfoProps {
   summonerName: string;
 }
+
+export interface Summoner {
+  summonerName: string;
+  rank: string;
+  tier: string;
+  wins: number;
+  losses: number;
+  odds: number;
+}

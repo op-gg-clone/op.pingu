@@ -7,15 +7,19 @@ import SummonerInfo from './summonerInfo';
 import SimpleMatchInfo from './simpleMatchInfo';
 import DetailMatchInfo from './detailMatchInfo';
 import summonerInfoService from '../utils/summonerInfoService';
+import SummonerSearch from './summonerInput';
 
-interface SummonerType {
-  summonerName: string;
-}
-
-const GameMatch = ({ summonerName }: SummonerType) => {
+const GameMatch = () => {
   const [match, setMatch] = useState<_MatchType[]>([]);
   const [summoner, setSummoner] = useState<_SummonerType[]>([]);
   const [showDetail, setShowDetail] = useState<number[]>([]);
+  const [summonerName, setSummonerName] = useState('Cozily');
+
+  const onKeyPress = (e: any) => {
+    if (e.key === 'Enter') {
+      setSummonerName(e.target.value);
+    }
+  };
 
   const matchInfoInit = useCallback(async () => {
     const matchList = await getMatchBySummonerName(summonerName);
@@ -52,13 +56,7 @@ const GameMatch = ({ summonerName }: SummonerType) => {
         <div className="text-white text-center text-3xl pt-4 font-semibold tracking-widest">
           OP.PINGU
         </div>
-        <div className="flex bg-white text-center mt-4 mx-3 rounded-xl">
-          <div className="bg-blue-200 w-1/6 rounded-l-xl">
-            <p className="text-center text-blue-600 mt-3 font-bold">KR</p>
-          </div>
-          <input className="h-12 w-3/5 ml-2" placeholder="소환사명"></input>
-          <button className="text-blue-700 font-bold text-xl">.PING!</button>
-        </div>
+        <SummonerSearch onKeyPress={onKeyPress} />
       </div>
       {summoner.length && (
         <SummonerInfo

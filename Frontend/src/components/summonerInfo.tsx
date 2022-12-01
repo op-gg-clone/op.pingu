@@ -1,13 +1,7 @@
 import { getRankEmblem } from '../utils/rankLoader';
 import summonerImage from '../img/5629.png';
-interface Summoner {
-  summonerName: string;
-  rank: string;
-  tier: string;
-  wins: number;
-  losses: number;
-  odds: number;
-}
+import { Summoner } from '../interface/ISummonerInfo';
+
 interface IRankType {
   type: string;
   rank: string;
@@ -32,7 +26,6 @@ const RankType = ({ type, tier, rank, wins, losses, odds }: IRankType) => {
     </div>
   );
 };
-
 const SummonerInfo = ({ summonerName, rank, tier, wins, losses, odds }: Summoner) => {
   return (
     <div className="p-2 bg-[#31313C] font-noto rounded-lg drop-shadow-lg">
