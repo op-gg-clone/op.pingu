@@ -51,9 +51,11 @@ const GameMatch = () => {
   };
 
   return (
-    <div className="bg-[#1C1C1F] h-full sm:bg-red-400">
-      <div className="bg-blue-900 h-36">
-        <div className="text-white text-center text-3xl pt-4">OP.PINGU</div>
+    <div className="h-full bg-slate-300">
+      <div className="bg-blue-900 h-36 rounded-lg my-1 font-roboto drop-shadow-lg">
+        <div className="text-white text-center text-3xl pt-4 font-semibold tracking-widest">
+          OP.PINGU
+        </div>
         <SummonerSearch onKeyPress={onKeyPress} />
       </div>
       {summoner.length && (
@@ -76,7 +78,18 @@ const GameMatch = () => {
           );
         })
       ) : (
-        <div className="text-white">로딩중</div>
+        <div className="text-white bg-slate-500 w-full h-12 text-center p-2 mt-1 rounded-lg font-noto text-lg">
+          로딩중
+        </div>
+      )}
+      {match.length ? (
+        <div>
+          <button className="text-center bg-slate-500 text-white w-full mt-1 rounded-lg p-2 font-noto text-lg drop-shadow-lg">
+            전적 더 보기
+          </button>
+        </div>
+      ) : (
+        ''
       )}
     </div>
   );
