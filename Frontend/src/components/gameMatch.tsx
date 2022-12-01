@@ -9,14 +9,17 @@ import DetailMatchInfo from './detailMatchInfo';
 import summonerInfoService from '../utils/summonerInfoService';
 import SummonerSearch from './summonerInput';
 
-interface SummonerType {
-  summonerName: string;
-}
-
-const GameMatch = ({ summonerName }: SummonerType) => {
+const GameMatch = () => {
   const [match, setMatch] = useState<_MatchType[]>([]);
   const [summoner, setSummoner] = useState<_SummonerType[]>([]);
   const [showDetail, setShowDetail] = useState<number[]>([]);
+  const [summonerName, setSummonerName] = useState('Cozily');
+
+  const onKeyPress = (e: any) => {
+    if (e.key === 'Enter') {
+      setSummonerName(e.target.value);
+    }
+  };
 
   const matchInfoInit = useCallback(async () => {
     const matchList = await getMatchBySummonerName(summonerName);
@@ -51,7 +54,7 @@ const GameMatch = ({ summonerName }: SummonerType) => {
     <div className="bg-[#1C1C1F] h-full sm:bg-red-400">
       <div className="bg-blue-900 h-36">
         <div className="text-white text-center text-3xl pt-4">OP.PINGU</div>
-        <SummonerSearch />
+        <SummonerSearch onKeyPress={onKeyPress} />
       </div>
       {summoner.length && (
         <SummonerInfo
