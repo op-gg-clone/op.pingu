@@ -10,22 +10,20 @@ import summonerInfoService from '../utils/summonerInfoService';
 import SummonerSearch from './summonerInput';
 
 interface SummonerType {
-  summonerName: string;
+  summonerBaseName: string;
 }
 
-const GameMatch = ({ summonerName }: SummonerType) => {
+const GameMatch = ({ summonerBaseName }: SummonerType) => {
   const [match, setMatch] = useState<_MatchType[]>([]);
   const [summoner, setSummoner] = useState<_SummonerType[]>([]);
   const [showDetail, setShowDetail] = useState<number[]>([]);
-  const [search, setSearch] = useState('');
+  const [summonerName, setSummonerName] = useState(summonerBaseName);
 
   const onKeyPress = (e: any) => {
     if (e.key === 'Enter') {
-      setSearch(e.target.value);
+      setSummonerName(e.target.value);
     }
   };
-
-  console.log('search', search);
 
   const matchInfoInit = useCallback(async () => {
     const matchList = await getMatchBySummonerName(summonerName);
