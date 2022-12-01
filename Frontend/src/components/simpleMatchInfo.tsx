@@ -1,11 +1,26 @@
-import itemImage from '../img/1001.png';
+// import itemImage from '../img/1001.png';
 import championImage from '../img/Aatrox.png';
-import SummonerFlash from '../img/SummonerFlash.png';
 import _MatchType from '../type/matchType';
 interface matchInfo {
   matchInfo: _MatchType;
   detailBtnClickHandler: any;
 }
+
+const SpellPerk = ({ imageSrc }: { imageSrc: string }) => {
+  return (
+    <div className="h-5 w-5">
+      <img className="h-full w-full object-cover rounded-md" src={imageSrc} alt="champion" />
+    </div>
+  );
+};
+
+const ItemIcon = ({ itemImage }: { itemImage: string }) => {
+  return (
+    <div className="h-5 w-5 drop-shadow-sm">
+      <img className="h-full w-full object-cover rounded-md" src={itemImage} alt="champion" />
+    </div>
+  );
+};
 
 const SimpleMatchInfo = ({ matchInfo, detailBtnClickHandler }: matchInfo) => {
   return (
@@ -43,34 +58,10 @@ const SimpleMatchInfo = ({ matchInfo, detailBtnClickHandler }: matchInfo) => {
             </span>
           </div>
           <div className="inline-grid grid-cols-2 gap-1 ml-1">
-            <div className="h-5 w-5">
-              <img
-                className="h-full w-full object-cover rounded-md"
-                src={SummonerFlash}
-                alt="champion"
-              />
-            </div>
-            <div className="h-5 w-5">
-              <img
-                className="h-full w-full object-cover rounded-md"
-                src={SummonerFlash}
-                alt="champion"
-              />
-            </div>
-            <div className="h-5 w-5">
-              <img
-                className="h-full w-full object-cover rounded-md"
-                src={SummonerFlash}
-                alt="champion"
-              />
-            </div>
-            <div className="h-5 w-5">
-              <img
-                className="h-full w-full object-cover rounded-md"
-                src={SummonerFlash}
-                alt="champion"
-              />
-            </div>
+            <SpellPerk imageSrc={matchInfo.personalMatch.spell1} />
+            <SpellPerk imageSrc={matchInfo.personalMatch.spell2} />
+            <SpellPerk imageSrc={matchInfo.personalMatch.mainPerk} />
+            <SpellPerk imageSrc={matchInfo.personalMatch.subPerk} />
           </div>
         </div>
         <div className="flex flex-col w-1/6">
@@ -99,27 +90,13 @@ const SimpleMatchInfo = ({ matchInfo, detailBtnClickHandler }: matchInfo) => {
           </div>
         </div>
         <div className="inline-grid grid-cols-4 gap-0">
-          <div className="h-5 w-5">
-            <img className="h-full w-full object-cover rounded-md" src={itemImage} alt="champion" />
-          </div>
-          <div className="h-5 w-5">
-            <img className="h-full w-full object-cover rounded-md" src={itemImage} alt="champion" />
-          </div>
-          <div className="h-5 w-5">
-            <img className="h-full w-full object-cover rounded-md" src={itemImage} alt="champion" />
-          </div>
-          <div className="h-5 w-5">
-            <img className="h-full w-full object-cover rounded-md" src={itemImage} alt="champion" />
-          </div>
-          <div className="h-5 w-5">
-            <img className="h-full w-full object-cover rounded-md" src={itemImage} alt="champion" />
-          </div>
-          <div className="h-5 w-5">
-            <img className="h-full w-full object-cover rounded-md" src={itemImage} alt="champion" />
-          </div>
-          <div className="h-5 w-5">
-            <img className="h-full w-full object-cover rounded-md" src={itemImage} alt="champion" />
-          </div>
+          <ItemIcon itemImage={matchInfo.personalMatch.item0} />
+          <ItemIcon itemImage={matchInfo.personalMatch.item1} />
+          <ItemIcon itemImage={matchInfo.personalMatch.item2} />
+          <ItemIcon itemImage={matchInfo.personalMatch.item3} />
+          <ItemIcon itemImage={matchInfo.personalMatch.item4} />
+          <ItemIcon itemImage={matchInfo.personalMatch.item5} />
+          <ItemIcon itemImage={matchInfo.personalMatch.item6} />
         </div>
       </div>
     </div>

@@ -47,12 +47,14 @@ const GameMatch = ({ summonerName }: SummonerType) => {
   };
 
   return (
-    <div className="bg-[#1C1C1F] h-full sm:bg-red-400">
-      <div className="bg-blue-900 h-36">
-        <div className="text-white text-center text-3xl pt-4">OP.PINGU</div>
+    <div className="h-full bg-slate-300">
+      <div className="bg-blue-900 h-36 rounded-lg my-1 font-roboto drop-shadow-lg">
+        <div className="text-white text-center text-3xl pt-4 font-semibold tracking-widest">
+          OP.PINGU
+        </div>
         <div className="flex bg-white text-center mt-4 mx-3 rounded-xl">
           <div className="bg-blue-200 w-1/6 rounded-l-xl">
-            <p className="text-center text-blue-600 mt-3">KR</p>
+            <p className="text-center text-blue-600 mt-3 font-bold">KR</p>
           </div>
           <input className="h-12 w-3/5 ml-2" placeholder="소환사명"></input>
           <button className="text-blue-700 font-bold text-xl">.PING!</button>
@@ -78,7 +80,18 @@ const GameMatch = ({ summonerName }: SummonerType) => {
           );
         })
       ) : (
-        <div className="text-white">로딩중</div>
+        <div className="text-white bg-slate-500 w-full h-12 text-center p-2 mt-1 rounded-lg font-noto text-lg">
+          로딩중
+        </div>
+      )}
+      {match.length ? (
+        <div>
+          <button className="text-center bg-slate-500 text-white w-full mt-1 rounded-lg p-2 font-noto text-lg drop-shadow-lg">
+            전적 더 보기
+          </button>
+        </div>
+      ) : (
+        ''
       )}
     </div>
   );
