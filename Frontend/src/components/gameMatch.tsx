@@ -16,6 +16,10 @@ const GameMatch = () => {
   const [summonerName, setSummonerName] = useState('Cozily');
 
   const onKeyPress = (e: any) => {
+    if (e.target.value !== summonerName) {
+      setSummoner(() => []);
+      setMatch(() => []);
+    }
     if (e.key === 'Enter') {
       setSummonerName(e.target.value);
     }
@@ -58,7 +62,7 @@ const GameMatch = () => {
         </div>
         <SummonerSearch onKeyPress={onKeyPress} />
       </div>
-      {summoner.length && (
+      {summoner.length ? (
         <SummonerInfo
           summonerName={summonerName}
           rank={summoner[0].rank}
@@ -67,13 +71,17 @@ const GameMatch = () => {
           losses={summoner[0].losses}
           odds={summoner[0].getOdds()}
         />
+      ) : (
+        <div className="text-white bg-slate-500 w-full h-12 text-center p-2 mt-1 rounded-lg font-noto text-lg">
+          로딩중
+        </div>
       )}
       {match.length ? (
         match.map((e, idx) => {
           return (
             <div key={idx} className="matchInfo">
               <SimpleMatchInfo matchInfo={e} detailBtnClickHandler={handleDetailBtn(idx)} />
-              {showDetail.includes(idx) && <DetailMatchInfo />}
+              {showDetail.includes(idx) && <DetailMatchInfo data={e} />}
             </div>
           );
         })

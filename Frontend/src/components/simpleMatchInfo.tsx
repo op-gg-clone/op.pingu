@@ -1,5 +1,4 @@
 // import itemImage from '../img/1001.png';
-import championImage from '../img/Aatrox.png';
 import _MatchType from '../type/matchType';
 interface matchInfo {
   matchInfo: _MatchType;
@@ -8,13 +7,16 @@ interface matchInfo {
 
 const SpellPerk = ({ imageSrc }: { imageSrc: string }) => {
   return (
-    <div className="h-5 w-5">
+    <div className="h-5 w-5 bg-black rounded-full">
       <img className="h-full w-full object-cover rounded-md" src={imageSrc} alt="champion" />
     </div>
   );
 };
 
 const ItemIcon = ({ itemImage }: { itemImage: string }) => {
+  if (itemImage.length < 65) {
+    return <div className="h-5 w-5 drop-shadow-sm rounded-md opacity-50"></div>;
+  }
   return (
     <div className="h-5 w-5 drop-shadow-sm">
       <img className="h-full w-full object-cover rounded-md" src={itemImage} alt="champion" />
@@ -39,7 +41,7 @@ const SimpleMatchInfo = ({ matchInfo, detailBtnClickHandler }: matchInfo) => {
           <p>{matchInfo.getGameDurationToString()}</p>
         </div>
         <div className="text-sm text-white text-right">
-          <p>소환사의 협곡</p>
+          <p>{matchInfo.gameMode === 'CLASSIC' ? '소환사의 협곡' : '칼바람 나락'}</p>
         </div>
         <div className="text-right mr-2">
           <button onClick={detailBtnClickHandler}>detail</button>
@@ -50,7 +52,7 @@ const SimpleMatchInfo = ({ matchInfo, detailBtnClickHandler }: matchInfo) => {
           <div className="relative h-10 w-10">
             <img
               className="h-full w-full object-cover rounded-full"
-              src={championImage}
+              src={matchInfo.personalMatch.championImage}
               alt="champion"
             />
             <span className="absolute bottom-0 right-0 w-5 h-5 bg-gray-800 text-white text-sm text-center rounded-full">
@@ -59,8 +61,8 @@ const SimpleMatchInfo = ({ matchInfo, detailBtnClickHandler }: matchInfo) => {
           </div>
           <div className="inline-grid grid-cols-2 gap-1 ml-1">
             <SpellPerk imageSrc={matchInfo.personalMatch.spell1} />
-            <SpellPerk imageSrc={matchInfo.personalMatch.spell2} />
             <SpellPerk imageSrc={matchInfo.personalMatch.mainPerk} />
+            <SpellPerk imageSrc={matchInfo.personalMatch.spell2} />
             <SpellPerk imageSrc={matchInfo.personalMatch.subPerk} />
           </div>
         </div>
@@ -89,14 +91,18 @@ const SimpleMatchInfo = ({ matchInfo, detailBtnClickHandler }: matchInfo) => {
             <p>{`제어 와드 ${matchInfo.personalMatch.visionWardsBoughtInGame}`}</p>
           </div>
         </div>
-        <div className="inline-grid grid-cols-4 gap-0">
-          <ItemIcon itemImage={matchInfo.personalMatch.item0} />
-          <ItemIcon itemImage={matchInfo.personalMatch.item1} />
-          <ItemIcon itemImage={matchInfo.personalMatch.item2} />
-          <ItemIcon itemImage={matchInfo.personalMatch.item3} />
-          <ItemIcon itemImage={matchInfo.personalMatch.item4} />
-          <ItemIcon itemImage={matchInfo.personalMatch.item5} />
-          <ItemIcon itemImage={matchInfo.personalMatch.item6} />
+        <div className="relative mr-3">
+          <div className="inline-grid grid-cols-3 gap-0">
+            <ItemIcon itemImage={matchInfo.personalMatch.item0} />
+            <ItemIcon itemImage={matchInfo.personalMatch.item1} />
+            <ItemIcon itemImage={matchInfo.personalMatch.item2} />
+            <ItemIcon itemImage={matchInfo.personalMatch.item3} />
+            <ItemIcon itemImage={matchInfo.personalMatch.item4} />
+            <ItemIcon itemImage={matchInfo.personalMatch.item5} />
+          </div>
+          <div className="absolute top-0 -right-5">
+            <ItemIcon itemImage={matchInfo.personalMatch.item6} />
+          </div>
         </div>
       </div>
     </div>
